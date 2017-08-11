@@ -49,7 +49,7 @@ defined('BASEPATH') OR exit('Acesso negado.');
                                     <button type="submit" class="btn btn-primary btn-block">Enviar</button>
                                     <a href="<?php echo base_url('index.php/login'); ?>" class="btn btn-default btn-block m-t-md">Voltar</a>
                                 </form>
-                                <p class="text-center m-t-xs text-sm">2017 &copy; InfoSystems by Rian Martins.</p>
+                                <p class="text-center m-t-xs text-sm">2017 &copy; InfoSystems by Rian Martins..</p>
                             </div>
                         </div>
                     </div><!-- Row -->
