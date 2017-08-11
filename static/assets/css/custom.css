@@ -1,0 +1,29 @@
+/* Write your custom CSS here */
+
+.notificacao-erro, .notificacao-sucesso, .notificacao-warning, .notificacao-info{
+	position: absolute;
+	top: 20px;
+	right: 50px;
+	height: 80px;
+	width: 400px;
+	border-radius: 5px;
+	font-family:FontAwesome;
+	padding: 8px 35px 8px 14px;
+	margin-bottom: 18px;
+}
+
+.notificacao-erro{
+	background-color: #FF8080;
+}
+
+.notificacao-sucesso{
+	background-color: #DFF2BF;
+}
+
+.notificacao-warning{
+	background-color: #FEEFB3;
+}
+
+.notificacao-info{
+	background-color: #BDE5F8;
+}
