@@ -50,8 +50,8 @@ class Login extends CI_Controller {
 			$data["tipo_retorno"] = "erro";
 			$data["msg_retorno"] = "Por favor, aceite os termos de uso para realizar o cadastro.";
 
-			$this->load->view('cadastro_usuario_view',$data);
-			// echo '101';
+			// $this->load->view('cadastro_usuario_view',$data);
+			echo json_encode('101');
 			return false;
 		}
 
@@ -139,6 +139,70 @@ class Login extends CI_Controller {
 	public function esqueci_senha(){
 		
 		$this->load->view('esqueci_senha_view');
+		return false;
+	}
+
+	public function recupera_senha(){
+
+		$email = $this->input->post("email_registro");
+
+		$emails_cadastrados = $this->model->get_usuarios_emails();
+
+		$tem_cadastro = false;
+		foreach ($emails_cadastrados as $key => $email_cadastrado) {
+			if($email_cadastrado->email == $email)
+				$tem_cadastro = true;
+		}
+
+		if(!$tem_cadastro){
+			echo json_encode('101');
+			return false;
+		}
+
+		$chave = $this->model->get_chave($email);
+		$nome_pessoa = $this->model->get_usuario_nome($email);
+
+		$link = base_url('index.php/login/mudar_senha/') . "/" . $chave;
+
+		require 'PHPMailerAutoload.php';
+
+		$mail = new PHPMailer;
+
+		$mail->isSMTP();                                      	// Set mailer to use SMTP
+		// $mail->Host = 'smtp.live.com';  						// Hotmail SMTP server
+		$mail->Host = 'smtp.gmail.com';  						// Gmail SMTP server
+		$mail->SMTPAuth = true;                               	// Enable SMTP authentication
+		$mail->SetLanguage("br", "libs/"); 						// ajusto a lingua a ser utilizadda
+		$mail->CharSet = 'utf-8'; 								// Charset da mensagem (opcional)
+		// InfoSystems Gmail account
+		$mail->Username = 'infosystems.cia@gmail.com';          // SMTP username
+		$mail->Password = 'infosystems2017';                    // SMTP password
+
+		$mail->SMTPSecure = 'tls';                            	// Enable TLS encryption, `ssl` also accepted
+		$mail->Port = 587;                                    	// TCP port to connect to
+
+		$mail->setFrom('infosystems.cia@gmail.com', 'InfoSystems');
+		$mail->addAddress($email, $nome_pessoa);     			// Add a recipient
+		$mail->addReplyTo('naoresponder@infosystems.com', 'InfoSystems');
+
+		$mail->isHTML(true);                                  	// Set email format to HTML
+
+		$assunto = '[InfoSystems] - Mudança de senha';
+		$corpo = 'Recebemos uma solicitação de mudança de senha da sua conta na InfoSystems. Para realizar essa operação, favor acesse o link abaixo:</br> &emsp; ' . $link . '</br></br>Caso você não tenha solicitado tal alteração, favor desconsiderar essa mensagem.';
+		$corpo_alt = 'Recebemos uma solicitação de mudança de senha da sua conta na InfoSystems. Para realizar essa operação, favor acesse o link: ' . $link . '  Caso você não tenha solicitado tal alteração, favor desconsiderar essa mensagem.';
+
+		$mail->Subject = $assunto;
+		$mail->Body    = $corpo;
+		$mail->AltBody = $corpo_alt;
+
+		if(!$mail->send()) {
+		    // $retorno = 'Message could not be sent.';
+		    $retorno = $mail->ErrorInfo;
+		} else {
+		    $retorno = '1';
+		}
+
+		echo json_encode($retorno);
 		return false;
 	}
 
@@ -234,4 +298,5 @@ class Login extends CI_Controller {
 		$this->load->view('login_view',$data);
 		return false;
 	}
+
 }

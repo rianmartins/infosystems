@@ -42,6 +42,11 @@ class Usuario_model extends CI_Model {
                 return $this->db->insert_id();
         }
 
+        public function get_usuario_nome($email){
+                $query = $this->db->query("SELECT nome_pessoa FROM usuarios_cadastro WHERE email = '$email'");
+                return $query->row()->nome_pessoa;
+        }
+
         public function get_usuarios_emails(){
                 $query = $this->db->query("SELECT usuario, email FROM usuarios_cadastro");
                 return $query->result();
@@ -62,5 +67,25 @@ class Usuario_model extends CI_Model {
                 return $query->result();
         }
 
+        public function get_chave($email){
+                $query = $this->db->query("SELECT chave FROM usuarios_cadastro WHERE email = '$email'");
+                $chave = $query->row()->chave;
+                $nova_chave = $this->gera_nova_chave();
 
+                $query = $this->db->query("UPDATE usuarios_cadastro SET chave = '$nova_chave' WHERE email = '$email'");
+
+                return $chave;
+        }
+
+        private function gera_nova_chave() {
+            $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+            $pass = array(); //remember to declare $pass as an array
+            $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+            for ($i = 0; $i < 8; $i++) {
+                    $n = rand(0, $alphaLength);
+                    $pass[] = $alphabet[$n];
+            }
+            return implode($pass); //turn the array into a string
+            
+    }
 }

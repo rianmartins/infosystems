@@ -29,9 +29,6 @@ defined('BASEPATH') OR exit('Acesso negado.');
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"> </script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"> </script>
 
-    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js"></script>
-    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
-
     
 </head>
 <body class="page-register login-alt">
@@ -86,6 +83,8 @@ defined('BASEPATH') OR exit('Acesso negado.');
 <!-- Javascripts -->
 <script src="/static/assets/plugins/jquery/jquery-2.1.4.min.js"></script>
 <script src="/static/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
 <script src="/static/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js?key=YOUR_APIKEY&sensor=false"> </script>
 <script src="/static/assets/plugins/toastr/toastr.min.js"></script>
@@ -93,12 +92,34 @@ defined('BASEPATH') OR exit('Acesso negado.');
 
 <script type="text/javascript">
 
-        console.log("passa aqui");
+    console.log("passa aqui");
 
-        var tipo_retorno = "<?= $tipo_retorno ?>";
-        var mensagem_retorno = "<?= $msg_retorno ?>";
+    // var tipo_retorno = "<?= $tipo_retorno ?>";
+    // var mensagem_retorno = "<?= $msg_retorno ?>";
 
-        if(mensagem_retorno != null){
+    // if(mensagem_retorno != null){
+    //     toastr.options = {
+    //         closeButton: true,
+    //         progressBar: true,
+    //         showMethod: 'fadeIn',
+    //         hideMethod: 'fadeOut',
+    //         timeOut: 5000
+    //     };
+    //     switch(tipo_retorno) {
+    //         case "erro":
+    //             toastr.error('', mensagem_retorno);
+    //             break;
+    //         case "sucesso":
+    //             toastr.success('', mensagem_retorno);
+    //             break;
+    //     }
+    // }
+
+    var $form = $('#formulario_cadastro');
+
+    $form.validate({
+        submitHandler: function(form){
+            var l = Ladda.create(form.querySelector('button[type=submit]'));
             toastr.options = {
                 closeButton: true,
                 progressBar: true,
@@ -106,55 +127,33 @@ defined('BASEPATH') OR exit('Acesso negado.');
                 hideMethod: 'fadeOut',
                 timeOut: 5000
             };
-            switch(tipo_retorno) {
-                case "erro":
-                    toastr.error('', mensagem_retorno);
-                    break;
-                case "sucesso":
-                    toastr.success('', mensagem_retorno);
-                    break;
-            }
-        }
 
-        var $form = $('#formulario_cadastro');
-
-        $form.validate({
-            submitHandler: function(form){
-                var l = Ladda.create(form.querySelector('button[type=submit]'));
-                toastr.options = {
-                    closeButton: true,
-                    progressBar: true,
-                    showMethod: 'fadeIn',
-                    hideMethod: 'fadeOut',
-                    timeOut: 5000
-                };
-
-                $(form).ajaxSubmit({
-                    
-                    type : "POST",
-                    dataType : "json",
-                    beforeSend: function(){
-                        l.start();
-                    },
-                    success: function(data) {
-                        console.log("data: " + data);
-                        console.log("success");
-                        if(data == '1'){
-                            toastr.success('', mensagem_retorno);
-                        }
-                        else{
-                            toastr.error('', mensagem_retorno);
-                        }
-                    },
-                    error: function(data) {
-                        toastr.error('', data);
-                    },
-                    complete: function(){
-                        l.stop();
+            $(form).ajaxSubmit({
+                
+                type : "POST",
+                dataType : "json",
+                beforeSend: function(){
+                    l.start();
+                },
+                success: function(data) {
+                    console.log("data: " + data);
+                    console.log("success");
+                    if(data == '1'){
+                        toastr.success('', data);
                     }
-                });
-            }
-        });
+                    else{
+                        toastr.warning('', data);
+                    }
+                },
+                error: function(data) {
+                    toastr.error('', data);
+                },
+                complete: function(){
+                    l.stop();
+                }
+            });
+        }
+    });
 
 
 
