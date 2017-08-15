@@ -27,3 +27,21 @@
 .notificacao-info{
 	background-color: #BDE5F8;
 }
+
+.link_expirado{
+	text-align: center;
+	float: left;
+    width: 100%;
+    height: 100%;
+	background-color: #FFFFFF;
+}
+
+.texto_link_expirado{
+	position: absolute;
+	top: 50%;
+	right: 50%;
+}
+
+.full-height{
+	width: 100%;
+}

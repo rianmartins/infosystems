@@ -97,14 +97,16 @@ class Login extends CI_Controller {
 		if($senha_cadastro == $senha_confirmacao){
 
 			$pass = hash('sha512',$senha_cadastro);
+			$chave = $this->model->gera_nova_chave();
 
 			$novo_usuario = array(
-				"usuario"		=> $usuario,
-				"nome_pessoa" 	=> $nome,
-				"email" 		=> $email,
-				"senha" 		=> $pass,
+				"usuario"			 => $usuario,
+				"nome_pessoa" 		 => $nome,
+				"email" 			 => $email,
+				"senha" 			 => $pass,
 				"cod_usuario_status" => 2,
-				"cod_usuario_funcao" => 10
+				"cod_usuario_funcao" => 10,
+				"chave"				 => $chave
 			);
 
 			$id_usuario = $this->model->insert($novo_usuario);
@@ -139,6 +141,63 @@ class Login extends CI_Controller {
 	public function esqueci_senha(){
 		
 		$this->load->view('esqueci_senha_view');
+		return false;
+	}
+
+	public function mudar_senha($chave){
+
+		$chaves_banco = $this->model->get_usuarios_chave();
+		$id_usuario = null;
+
+		$encontrou_chave = false;
+		foreach ($chaves_banco as $key => $chave_banco) {
+			if($chave_banco->chave == $chave){
+				$id_usuario = $chave_banco->id_usuario;
+				$encontrou_chave = true;
+			}
+		}
+
+		if($encontrou_chave){
+			$data['id_usuario'] = $id_usuario;
+			$data['chave'] = $chave;
+
+			$this->load->view('mudanca_senha_view',$data);
+			return false;
+		}
+		else{
+			$this->load->view('link_expirado_view');
+			return false;
+		}
+		
+	}
+
+	public function salvar_mudanca_senha($id_usuario){
+		$nova_senha 			= $this->input->post("nova_senha");
+		$nova_senha_confirmacao = $this->input->post("nova_senha_confirmacao");
+		$chave 					= $this->input->post("chave");
+		$chave_atual 			= $this->model->get_chave_usuario($id_usuario); 
+
+		if($chave != $chave_atual){
+			echo json_encode('101');
+			return false;
+		}
+
+		if($nova_senha == $nova_senha_confirmacao){
+
+			$nova_senha_hash = hash('sha512',$nova_senha);
+
+			$this->model->atualiza_chave($id_usuario);
+			$this->model->alterar_senha($id_usuario,$nova_senha_hash);
+
+			echo json_encode('1');
+			return false;
+		}
+		else{
+			echo json_encode('102');
+			return false;
+		}
+
+		echo json_encode('103');
 		return false;
 	}
 

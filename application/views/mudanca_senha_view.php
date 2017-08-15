@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('Acesso negado.');
 <head>
     
     <!-- Title -->
-    <title>InfoSystems | Esqueci a Senha</title>
+    <title>InfoSystems | Mude sua Senha</title>
     
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <meta charset="UTF-8">
@@ -38,13 +38,18 @@ defined('BASEPATH') OR exit('Acesso negado.');
                         <div class="col-md-3 center">
                             <div class="login-box">
                                 <a href="<?php echo base_url('index.php/login'); ?>" class="logo-name text-lg text-center">InfoSystems</a>
-                                <p class="text-center m-t-md">Por favor, digite seu email para que possamos recuperar sua senha</p>
+                                <p class="text-center m-t-md">Por favor, digite sua nova senha.</p>
                                 <div id="carregando"></div>
-                                <form method="post" class="m-t-md" id="formulario_esqueci_senha">
+                                <form method="post" class="m-t-md" id="redefinir_senha">
+                                    <input type="hidden" class="form-control" id="chave_atual" name="chave" value="<?= $chave ?>">
+                                    <input type="hidden" class="form-control" id="id_usuario" name="id_usuario" value="<?= $id_usuario ?>">
                                     <div class="form-group">
-                                        <input type="email" class="form-control" title="Favor preencha esse campo" placeholder="Email" name="email_registro" id="email_registro" required>
+                                        <input type="password" class="form-control" title="Digite sua nova senha" placeholder="Senha" name="senha" id="nova_senha" required>
                                     </div>
-                                    <button type="button" class="btn btn-primary btn-block" id="enviar_formulario">Enviar</button>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" title="Digite sua senha novamente" placeholder="Confirmação da Senha" name="senha_confirmacao" id="nova_senha_confirmacao" required>
+                                    </div>
+                                    <button type="button" class="btn btn-primary btn-block" id="env_redefinir_senha">Enviar</button>
                                     <a href="<?php echo base_url('index.php/login'); ?>" class="btn btn-default btn-block m-t-md">Voltar</a>
                                 </form>
                                 <p class="text-center m-t-xs text-sm">2017 &copy; InfoSystems by Rian Martins.</p>
@@ -69,41 +74,42 @@ defined('BASEPATH') OR exit('Acesso negado.');
 
 <script type="text/javascript">
 
-    $("#enviar_formulario").click(function(){
+    $("#env_redefinir_senha").click(function(){
 
         toastr.options = {
             closeButton: true,
             progressBar: true,
             showMethod: 'fadeIn',
             hideMethod: 'fadeOut',
-            timeOut: 7000
+            timeOut: 5000
         };
 
-        var email = $("#email_registro").val(); 
+        var id_usuario = $("#id_usuario").val();
+        var nova_senha = $("#nova_senha").val(); 
+        var nova_senha_confirmacao = $("#nova_senha_confirmacao").val();
+        var chave_atual = $("#chave_atual").val(); 
 
         $.ajax({
-            url: "<?php echo base_url('index.php/login/recupera_senha'); ?>",
+            url: "<?php echo base_url('index.php/login/salvar_mudanca_senha'); ?>" + "/" + id_usuario,
             type: "post",
-            data: {"email_registro" : email},
+            data: {"nova_senha" : nova_senha, "nova_senha_confirmacao" : nova_senha_confirmacao, "chave" : chave_atual},
             dataType: 'json',
-            beforeSend: function(){
-                document.getElementById('carregando').innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processando informações...';
-            },
             success: function(data) {
-                document.getElementById('carregando').innerHTML = '';
                 if(data == '1'){
-                    toastr.success('As informações para redefinição de senha foram enviados para seu email', "Email enviado com sucesso.");
+                    toastr.success('', "Sua senha foi alterada com sucesso.");
                 }
                 else if(data == '101'){
-                    toastr.warning('', "Esse email não está cadastrado em nosso sistema.");
+                    toastr.warning('Sua senha já foi atualizada. Favor tentar entrar no sistema com a nova senha.', "Sua senha já foi alterada");
+                }
+                else if(data == '102'){
+                    toastr.warning('', "As senhas digitadas não conferem.");
                 }
                 else{
-                    toastr.error('Houve uma falha no envio do email, favor entrar em contato com a administração para mais informações.', "Falha no envio do email.");
+                    toastr.error('', "Houve um pequeno problema na operação.");
                 }
             },
             error: function(data) {
-                document.getElementById('carregando').innerHTML = '';
-                toastr.error('', data);
+                toastr.error('', "Falha na operação. Favor entrar em contato com a administração.");
             },
 
         });
