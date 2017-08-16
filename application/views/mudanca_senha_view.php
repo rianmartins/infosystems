@@ -38,7 +38,7 @@ defined('BASEPATH') OR exit('Acesso negado.');
                         <div class="col-md-3 center">
                             <div class="login-box">
                                 <a href="<?php echo base_url('index.php/login'); ?>" class="logo-name text-lg text-center">InfoSystems</a>
-                                <p class="text-center m-t-md">Por favor, digite sua nova senha.</p>
+                                <p class="text-center m-t-md">Por favor, digite sua nova senha.</p> 
                                 <div id="carregando"></div>
                                 <form method="post" class="m-t-md" id="redefinir_senha">
                                     <input type="hidden" class="form-control" id="chave_atual" name="chave" value="<?= $chave ?>">
