@@ -99,10 +99,10 @@ defined('BASEPATH') OR exit('Acesso negado.');
                     toastr.success('', "Sua senha foi alterada com sucesso.");
                 }
                 else if(data == '101'){
-                    toastr.warning('Sua senha já foi atualizada. Favor tentar entrar no sistema com a nova senha.', "Sua senha já foi alterada");
+                    toastr.error('Sua senha já foi atualizada. Favor tentar entrar no sistema com a nova senha.', "Sua senha já foi alterada");
                 }
                 else if(data == '102'){
-                    toastr.warning('', "As senhas digitadas não conferem.");
+                    toastr.error('', "As senhas digitadas não conferem.");
                 }
                 else{
                     toastr.error('', "Houve um pequeno problema na operação.");

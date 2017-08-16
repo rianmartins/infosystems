@@ -305,11 +305,12 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
     }
 
     var tem_unidade = "<?= $unidades ?>";
+    var cod_funcao = "<?= $cod_funcao ?>";
 
     setTimeout(function(){ 
-        if(tem_unidade == "nao")
+        if(tem_unidade == "nao" && (cod_funcao == 1 || cod_funcao == 2))
             alert("Você ainda nao possui unidades cadastradas. Deseja cadastrar agora?");
-    }, 1000);
+    }, 2000);
 
 </script>
 

@@ -42,15 +42,8 @@ class Login extends CI_Controller {
 		$senha_confirmacao = $this->input->post("senha_confirmacao");
 		$termos_de_uso = $this->input->post("termos_de_uso_checkbox");
 
-		if($termos_de_uso != "on"){
-			$data['nome_pessoa'] = $nome;
-			$data['email_registro'] = $email;
-			$data['usuario_registro'] = $usuario;
 
-			$data["tipo_retorno"] = "erro";
-			$data["msg_retorno"] = "Por favor, aceite os termos de uso para realizar o cadastro.";
-
-			// $this->load->view('cadastro_usuario_view',$data);
+		if($termos_de_uso == "false"){
 			echo json_encode('101');
 			return false;
 		}
@@ -69,28 +62,12 @@ class Login extends CI_Controller {
 		}
 
 		if($mesmo_usuario){
-			$data['nome_pessoa'] = $nome;
-			$data['email_registro'] = $email;
-			$data['usuario_registro'] = $usuario;
-
-			$data["tipo_retorno"] = "erro";
-			$data["msg_retorno"] = "Esse nome de usuário já foi escolhido, favor escolher outro.";
-
-			$this->load->view('cadastro_usuario_view',$data);
-			// echo '102';
+			echo json_encode('102');
 			return false;
 		}
 			
 		if($mesmo_email){
-			$data['nome_pessoa'] = $nome;
-			$data['email_registro'] = $email;
-			$data['usuario_registro'] = $usuario;
-
-			$data["tipo_retorno"] = "erro";
-			$data["msg_retorno"] = "Esse email já está cadastrado.";
-
-			$this->load->view('cadastro_usuario_view',$data);
-			// echo '103';
+			echo json_encode('103');
 			return false;
 		}
 
@@ -111,28 +88,11 @@ class Login extends CI_Controller {
 
 			$id_usuario = $this->model->insert($novo_usuario);
 
-			$data['nome_pessoa'] = $nome;
-			$data['email_registro'] = $email;
-			$data['usuario_registro'] = $usuario;
-
-			$data["tipo_retorno"] = "sucesso";
-			$data["msg_retorno"] = "Usuário Cadastrado com sucesso.";
-
-			$this->load->view('cadastro_usuario_view',$data);
-			// $this->index();
-			// echo '1';
+			echo json_encode('1');
 			return false;
 		}
 		else{
-			$data['nome_pessoa'] = $nome;
-			$data['email_registro'] = $email;
-			$data['usuario_registro'] = $usuario;
-
-			$data["tipo_retorno"] = "erro";
-			$data["msg_retorno"] = "A senha digitada não confere. Favor tentar novamente.";
-
-			$this->load->view('cadastro_usuario_view',$data);
-			// echo '104';
+			echo json_encode('104');
 			return false;
 		}
 
@@ -255,7 +215,6 @@ class Login extends CI_Controller {
 		$mail->AltBody = $corpo_alt;
 
 		if(!$mail->send()) {
-		    // $retorno = 'Message could not be sent.';
 		    $retorno = $mail->ErrorInfo;
 		} else {
 		    $retorno = '1';
@@ -287,12 +246,22 @@ class Login extends CI_Controller {
 				if($user->senha == $senha_hash){
 					$nome_pessoa = $user->nome_pessoa;
 					$id_usuario = $user->id_usuario;
+					$cod_funcao = $user->cod_usuario_funcao;
+					$cod_status = $user->cod_usuario_status;
 					$loga = true;
 				}
 			}
 		}
 
 		if($loga){
+
+			if($cod_status != 1){
+				$data["tipo_retorno"] = "erro";
+				$data["msg_retorno"] = "Usuário não autorizado. Favor entrar em contato com a gerência.";
+
+				$this->load->view('login_view',$data);
+				return false;
+			}
 
 			$unidades = $this->model->get_unidades();
 			if(count($unidades) == 0){
@@ -309,9 +278,12 @@ class Login extends CI_Controller {
 			$_SESSION['logado'] = true;
 			$_SESSION['ultima_modificacao'] = time();
 			$_SESSION['cod_unidade'] = $this->model->get_usuario_unidade($id_usuario);
+			$_SESSION['cod_funcao'] = $cod_funcao;
 
 			$data['nome_usuario'] = $nome_pessoa;
 			$data['bem_vindo'] = "true";
+			$data['cod_funcao'] = $cod_funcao;
+			$data['cod_status'] = $cod_status;
 
 
 			$data['conteudo'] = $this->load->view('welcome_message',$data,TRUE);

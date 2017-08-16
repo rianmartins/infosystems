@@ -95,7 +95,7 @@ class Usuario_model extends CI_Model {
                 $query = $this->db->query("UPDATE usuarios_cadastro SET chave = '$nova_chave' WHERE id_usuario = {$id_usuario}");
         }
 
-        private function gera_nova_chave() {
+        public function gera_nova_chave() {
                 do{
                         $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
                         $pass = array(); //remember to declare $pass as an array
