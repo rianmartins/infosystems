@@ -88,7 +88,7 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
                             
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle waves-effect waves-button waves-classic" data-toggle="dropdown">
-                                    <span class="user-name"><?= $nome_usuario ?><i class="fa fa-angle-down"></i></span>
+                                    <span class="user-name"><?= $_SESSION['user_name'] ?><i class="fa fa-angle-down"></i></span>
                                     <img class="img-circle avatar" src="/static/img/user-icon.png" width="40" height="40" alt="">
                                 </a>
                                 <ul class="dropdown-menu dropdown-list" role="menu">
@@ -111,17 +111,17 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
                     <li class="active"><a href="<?php echo base_url('index.php/dashboard'); ?>"><span class="menu-icon icon-home"></span><p>Início</p></a></li>
                     <li class="droplink"><a href="#"><span class="menu-icon icon-note"></span><p>Cadastros</p><span class="arrow"></span></a>
                         <ul class="sub-menu">
-                            <li><a href="">Cliente</a></li>
-                            <li><a href="">Produtos</a></li>
-                            <li><a href="">Funcionários</a></li>
-                            <li><a href="">Unidades</a></li>
+                            <li><a href="#">Cliente</a></li>
+                            <li><a href="#">Produtos</a></li>
+                            <li><a href="#">Funcionários</a></li>
+                            <li><a href="<?php echo base_url('index.php/cadastro_unidades'); ?>">Unidades</a></li>
                         </ul>
                     </li>
                     <li class="droplink"><a href="#"><span class="menu-icon icon-wallet"></span><p>Financeiro</p><span class="arrow"></span></a>
                         <ul class="sub-menu">
-                            <li><a href="">Venda</a></li>
-                            <li><a href="">Caixa</a></li>
-                            <li><a href="">...</a></li>
+                            <li><a href="#">Venda</a></li>
+                            <li><a href="#">Caixa</a></li>
+                            <li><a href="#">...</a></li>
                         </ul>
                     </li>
                     <!-- <li class="droplink"><a href="#"><span class="menu-icon icon-briefcase"></span><p>UI Kits</p><span class="arrow"></span></a>
@@ -152,8 +152,8 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
                     </li> -->
                     <li class="droplink"><a href="#"><span class="menu-icon icon-eye"></span><p>Consultas</p><span class="arrow"></span></a>
                         <ul class="sub-menu">
-                            <li><a href="">Estoque</a></li>
-                            <li><a href="">Produtos</a></li>
+                            <li><a href="#">Estoque</a></li>
+                            <li><a href="#">Produtos</a></li>
                             <li><a href="table-static.html">Static Tables</a></li>
                             <li><a href="table-responsive.html">Responsive Tables</a></li>
                             <li><a href="table-data.html">Data Tables</a></li>
@@ -234,12 +234,17 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
             <div class="page-breadcrumb">
                 <ol class="breadcrumb container">
                     <li><a href="<?php echo base_url('index.php/dashboard'); ?>">Home</a></li>
-                    <li class="active">Dashboard</li>
+                    <?php
+                        if($pagina != "Dashboard"){ ?>
+                            <li><a href="#"><?= $caminho ?></a></li>
+                        <?php }
+                    ?>
+                    <li class="active"><?= $pagina ?></li>
                 </ol>
             </div>
             <div class="page-title">
                 <div class="container">
-                    <h3>Dashboard</h3>
+                    <h3><?= $titulo_da_pagina ?></h3>
                 </div>
             </div>
             <div id="main-wrapper" class="container">
@@ -291,7 +296,12 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
 
 <script type="text/javascript">
 
-    var bem_vindo_ao_dashboard = "<?= $bem_vindo ?>"; 
+    var pagina = "<?= $pagina ?>";
+    if (pagina == "Dashboard"){
+        var bem_vindo_ao_dashboard = "<?= $bem_vindo ?>";
+    else{
+        var bem_vindo_ao_dashboard = "false";
+    }
 
     if(bem_vindo_ao_dashboard == "true"){
         toastr.options = {
@@ -304,8 +314,8 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
         toastr.success('', 'Seja bem vindo ao InfoSystem!');
     }
 
-    var tem_unidade = "<?= $unidades ?>";
-    var cod_funcao = "<?= $cod_funcao ?>";
+    var tem_unidade = "<?= $_SESSION['cod_unidade'] ?>";
+    var cod_funcao = "<?= $_SESSION['cod_funcao'] ?>";
 
     setTimeout(function(){ 
         if(tem_unidade == "nao" && (cod_funcao == 1 || cod_funcao == 2))

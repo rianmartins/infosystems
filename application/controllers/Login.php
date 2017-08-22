@@ -285,9 +285,10 @@ class Login extends CI_Controller {
 			$data['cod_funcao'] = $cod_funcao;
 			$data['cod_status'] = $cod_status;
 
-
 			$data['conteudo'] = $this->load->view('welcome_message',$data,TRUE);
 			$data['titulo_da_pagina'] = "Dashboard";
+			$data['caminho'] = "";
+			$data['pagina'] = "Dashboard";
 
 			$this->load->view('main_view',$data);
 			return false;

@@ -23,6 +23,8 @@ class Dashboard extends CI_Controller {
 		else{
 			$data['nome_usuario'] = $_SESSION['user_name'];
 			$data['bem_vindo'] = "false";
+			$data['unidades'] = "";
+			$data['cod_funcao'] = $_SESSION['cod_funcao'];
 			$data['titulo_da_pagina'] = "Dashboard";
 
 			$data['conteudo'] = $this->load->view('welcome_message',$data,TRUE);
