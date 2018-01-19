@@ -62,3 +62,7 @@
 
     </form>
 </div>
+
+<script type="text/javascript">
+    console.log("bla bla bla");
+</script>>

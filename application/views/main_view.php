@@ -124,32 +124,6 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
                             <li><a href="#">...</a></li>
                         </ul>
                     </li>
-                    <!-- <li class="droplink"><a href="#"><span class="menu-icon icon-briefcase"></span><p>UI Kits</p><span class="arrow"></span></a>
-                        <ul class="sub-menu">
-                            <li><a href="ui-alerts.html">Alerts</a></li>
-                            <li><a href="ui-buttons.html">Buttons</a></li>
-                            <li><a href="ui-icons.html">Icons</a></li>
-                            <li><a href="ui-typography.html">Typography</a></li>
-                            <li><a href="ui-notifications.html">Notifications</a></li>
-                            <li><a href="ui-grid.html">Grid</a></li>
-                            <li><a href="ui-tabs-accordions.html">Tabs &amp; Accordions</a></li>
-                            <li><a href="ui-modals.html">Modals</a></li>
-                            <li><a href="ui-panels.html">Panels</a></li>
-                            <li><a href="ui-progress.html">Progress Bars</a></li>
-                            <li><a href="ui-sliders.html">Sliders</a></li>
-                            <li><a href="ui-nestable.html">Nestable</a></li>
-                            <li><a href="ui-tree-view.html">Tree View</a></li>
-                        </ul>
-                    </li>
-                    <li class="droplink"><a href="#"><span class="menu-icon icon-layers"></span><p>Layers</p><span class="arrow"></span></a>
-                        <ul class="sub-menu">
-                            <li><a href="layout-blank.html">Blank Page</a></li>
-                            <li><a href="layout-fixed-sidebar.html">Fixed Menu</a></li>
-                            <li><a href="layout-static-header.html">Static Header</a></li>
-                            <li><a href="layout-collapsed-sidebar.html">Collapsed Sidebar</a></li>
-                            <li><a href="layout-large-menu.html">Large Menu</a></li>
-                        </ul>
-                    </li> -->
                     <li class="droplink"><a href="#"><span class="menu-icon icon-eye"></span><p>Consultas</p><span class="arrow"></span></a>
                         <ul class="sub-menu">
                             <li><a href="#">Estoque</a></li>
@@ -170,48 +144,6 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
                             <li><a href="form-x-editable.html">X-editable</a></li>
                         </ul>
                     </li>
-                    <!-- <li class="droplink"><a href="#"><span class="menu-icon icon-bar-chart"></span><p>Charts</p><span class="arrow"></span></a>
-                        <ul class="sub-menu">
-                            <li><a href="charts-sparkline.html">Sparkline</a></li>
-                            <li><a href="charts-rickshaw.html">Rickshaw</a></li>
-                            <li><a href="charts-morris.html">Morris</a></li>
-                            <li><a href="charts-flotchart.html">Flotchart</a></li>
-                            <li><a href="charts-chartjs.html">Chart.js</a></li>
-                        </ul>
-                    </li>
-                    <li class="droplink"><a href="#"><span class="menu-icon icon-user"></span><p>Login</p><span class="arrow"></span></a>
-                        <ul class="sub-menu">
-                            <li><a href="login.html">Login Form</a></li>
-                            <li><a href="login-alt.html">Login Alt</a></li>
-                            <li><a href="register.html">Register Form</a></li>
-                            <li><a href="register-alt.html">Register Alt</a></li>
-                            <li><a href="forgot.html">Forgot Password</a></li>
-                            <li><a href="lock-screen.html">Lock Screen</a></li>
-                        </ul>
-                    </li>
-                    <li class="droplink"><a href="#"><span class="menu-icon icon-pointer"></span><p>Maps</p><span class="arrow"></span></a>
-                        <ul class="sub-menu">
-                            <li><a href="maps-google.html">Google Maps</a></li>
-                            <li><a href="maps-vector.html">Vector Maps</a></li>
-                        </ul>
-                    </li>
-                    <li class="droplink"><a href="#"><span class="menu-icon icon-present"></span><p>Extra</p><span class="arrow"></span></a>
-                        <ul class="sub-menu">
-                            <li><a href="404.html">404 Page</a></li>
-                            <li><a href="500.html">500 Page</a></li>
-                            <li><a href="invoice.html">Invoice</a></li>
-                            <li><a href="calendar.html">Calendar</a></li>
-                            <li><a href="faq.html">FAQ</a></li>
-                            <li><a href="todo.html">Todo</a></li>
-                            <li><a href="pricing-tables.html">Pricing Tables</a></li>
-                            <li><a href="shop.html">Shop</a></li>
-                            <li><a href="gallery.html">Gallery</a></li>
-                            <li><a href="timeline.html">Timeline</a></li>
-                            <li><a href="search.html">Search Results</a></li>
-                            <li><a href="coming-soon.html">Coming Soon</a></li>
-                            <li><a href="contact.html">Contact</a></li>
-                        </ul>
-                    </li> -->
                     <li class="droplink"><a href="#"><span class="menu-icon icon-list"></span><p>Levels</p><span class="arrow"></span></a>
                         <ul class="sub-menu">
                             <li class="droplink"><a href="#"><p>Level 1.1</p><span class="arrow"></span></a>
@@ -298,7 +230,8 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
 
     var pagina = "<?= $pagina ?>";
     if (pagina == "Dashboard"){
-        var bem_vindo_ao_dashboard = "<?= $bem_vindo ?>";
+        var bem_vindo_ao_dashboard = "<?php if(isset($bem_vindo)) echo $bem_vindo; else echo 'false' ?>";
+    }
     else{
         var bem_vindo_ao_dashboard = "false";
     }
