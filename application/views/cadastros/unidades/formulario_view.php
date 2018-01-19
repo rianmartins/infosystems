@@ -12,9 +12,7 @@
                 </div>
             </div>
         </fieldset>
-        <div class="form-group">
-            <hr/>
-        </div>
+        <hr/>
         <fieldset>
             <div class="form-group">
                 <h4>Endereço</h4>
