@@ -7,6 +7,7 @@ class Cadastro_unidades extends CI_Controller {
 	{
 		parent::__construct();
 
+		$this->load->model('Unidades_model', 'model', TRUE);
 		$this->load->model('Usuario_model', 'usuario', TRUE);
 	}
 
@@ -16,6 +17,9 @@ class Cadastro_unidades extends CI_Controller {
 		$data['titulo_da_pagina'] = "Cadastro de Unidades";
 		$data['caminho'] = "Cadastro";
 		$data['pagina'] = "Unidades";
+
+		$data['estados'] = $this->model->get_estados_br();
+
 		$data['conteudo'] = $this->load->view('cadastros/unidades/formulario_view',$data,TRUE);
 
 		$this->load->view('main_view',$data);
