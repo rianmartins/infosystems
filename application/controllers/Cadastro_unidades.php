@@ -26,4 +26,10 @@ class Cadastro_unidades extends CI_Controller {
 		return false;
 	}
 
+	public function get_cidades_by_estados($estado_id){
+		$cidades = $this->model->consulta_cidades_por_estado($estado_id);
+
+		echo json_encode($cidades);
+	}
+
 }

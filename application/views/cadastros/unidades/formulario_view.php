@@ -1,4 +1,4 @@
-<div class="panel-body">
+<div class="panel-body" id="formulario_cadastro_unidade_sistema">
     <form class="form-horizontal form-label-left">
         <fieldset>
             <div class="form-group">
@@ -22,18 +22,18 @@
                 </div>
                 <div class="col-md-4">
                     <label>Estado:</label>
-                    <select class="form-control select2" tabindex="-1" style=" width: 100%">
+                    <select class="form-control select2 estados" name="estado">
                         <option value="">::SELECIONE::</option>
                         <?php 
                             foreach ($estados as $estado) { ?>
-                                <option value="<?= $estado->sigla ?>"><?= $estado->nome ?></option>
+                                <option value="<?= $estado->id ?>"><?= $estado->nome ?></option>
                             <?php }
                         ?>
                     </select>
                 </div>
                 <div class="col-md-4">
                     <label>Cidade:</label>
-                    <select class="form-control select2" tabindex="-1" style=" width: 100%">
+                    <select class="form-control select2 cidades" name="cidade">
                         <option value="">::SELECIONE::</option>
                     </select>
                 </div>
@@ -63,6 +63,38 @@
     </form>
 </div>
 
+<script type="text/javascript" src="/static/assets/js/scripts.js"></script>
 <script type="text/javascript">
-    console.log("bla bla bla");
-</script>>
+
+    loadScript("https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js", function(){
+        
+        var $form = document.getElementById('formulario_cadastro_unidade_sistema');
+
+        $('.estados', $form).select2().change(function(){
+
+            let estado_id = this.value;
+
+            $.ajax({
+                type: "GET",
+                url: "<?= base_url(); ?>" + "index.php/Cadastro_unidades/get_cidades_by_estados/" + estado_id,
+                dataType: 'json',
+                success: function(cidades){
+                    console.log("data",cidades);
+
+                    $('.cidades', $form).select2({
+                        data: cidades
+                    });
+                },
+                error: function(err){
+                    console.log("err",err);
+                }
+            });
+
+        });
+
+
+    });
+
+    
+    
+</script>

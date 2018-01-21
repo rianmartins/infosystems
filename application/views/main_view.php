@@ -29,6 +29,7 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
     <title>InfoSystems | <?= $titulo_da_pagina ?></title>
     
     <!-- Styles -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700' rel='stylesheet' type='text/css'>
     <link href="/static/assets/plugins/pace-master/themes/blue/pace-theme-flash.css" rel="stylesheet"/>
     <link href="/static/assets/plugins/uniform/css/uniform.default.min.css" rel="stylesheet"/>
