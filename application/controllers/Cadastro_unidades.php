@@ -32,4 +32,17 @@ class Cadastro_unidades extends CI_Controller {
 		echo json_encode($cidades);
 	}
 
+
+	public function get_estado_id($estado_uf){
+		$estado_id = $this->model->consulta_estado_id($estado_uf);
+
+		echo json_encode($estado_id);
+	}
+
+	public function get_cidade_id($cidade_nome){
+		$cidade_id = $this->model->consulta_cidade_id($cidade_nome);
+
+		echo json_encode($cidade_id);
+	}
+
 }

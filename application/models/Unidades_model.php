@@ -34,4 +34,26 @@ class Unidades_model extends CI_Model {
 
         return $this->db->query($sql)->result();
     }
+
+    public function consulta_estado_id($estado_uf){
+        $sql = "SELECT 
+                    id
+
+                FROM estados 
+
+                WHERE sigla = '{$estado_uf}'";
+
+        return $this->db->query($sql)->row();
+    }
+
+    public function consulta_cidade_id($cidade_nome){
+        $sql = "SELECT 
+                    id
+
+                FROM cidades 
+
+                WHERE nome = '{$cidade_nome}'";
+
+        return $this->db->query($sql)->row();
+    }
 }
