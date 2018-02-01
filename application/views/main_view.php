@@ -40,7 +40,9 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
     <link href="/static/assets/plugins/switchery/switchery.min.css" rel="stylesheet" type="text/css"/>
     <link href="/static/assets/plugins/3d-bold-navigation/css/style.css" rel="stylesheet" type="text/css"/>
     <link href="/static/assets/plugins/slidepushmenus/css/component.css" rel="stylesheet" type="text/css"/>	
-    <link href="/static/assets/plugins/weather-icons-master/css/weather-icons.min.css" rel="stylesheet" type="text/css"/>	
+    <link href="/static/assets/plugins/weather-icons-master/css/weather-icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/assets/plugins/datatables/css/jquery.datatables.min.css" rel="stylesheet" type="text/css"/> 
+    <link href="/static/assets/plugins/datatables/css/jquery.datatables_themeroller.css" rel="stylesheet" type="text/css"/> 
     <link href="/static/assets/plugins/metrojs/MetroJs.min.css" rel="stylesheet" type="text/css"/>	
     <link href="/static/assets/plugins/toastr/toastr.min.css" rel="stylesheet" type="text/css"/>	
     	
@@ -120,11 +122,11 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
                             
                         </ul>
                     </li>
-                    <li class="droplink"><a href="#"><span class="menu-icon icon-list"></span><p>Levels</p><span class="arrow"></span></a>
+                    <li class="droplink"><a href="#"><span class="menu-icon icon-folder"></span><p>Levels</p><span class="arrow"></span></a>
                         <ul class="sub-menu">
-                            <li class="droplink"><a href="#"><p>Level 1.1</p><span class="arrow"></span></a>
+                            <li class="droplink has_sub"><a href="#"><p>Level 1.1</p><span class="arrow"></span></a>
                                 <ul class="sub-menu">
-                                    <li class="droplink"><a href="#"><p>Level 2.1</p><span class="arrow"></span></a>
+                                    <li class="droplink has_sub_2"><a href="#"><p>Level 2.1</p><span class="arrow"></span></a>
                                         <ul class="sub-menu">
                                             <li><a href="#">Level 3.1</a></li>
                                         </ul>
@@ -142,7 +144,12 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
                     </li>
                     <li class="droplink"><a href="#"><span class="menu-icon icon-settings"></span><p>Congifurações</p><span class="arrow"></span></a>
                         <ul class="sub-menu">
-                            <li><a href="<?php echo base_url('index.php/configuracoes_sistema/funcionario_funcao_index'); ?>">Cadastro de Função</a></li>
+                            <li class="droplink has_sub"><a href="#"><p>Cadastros Base</p><span class="arrow"></span></a>
+                                <ul class="sub-menu" id="level_2">
+                                    <li><a href="<?php echo base_url('index.php/configuracoes_sistema/funcionario_funcao_index'); ?>">Funções de Trabalho</a></li>
+                                    <li><a href="#">Situação de Laboratório</a></li>
+                                </ul>
+                            </li>
                             <li><a href="#">Cadastro de Funcionários</a></li>
                             <li><a href="<?php echo base_url('index.php/cadastro_unidades'); ?>">Cadastro de Unidades</a></li>
                         </ul>
@@ -194,14 +201,16 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
 <script src="/static/assets/plugins/jquery/jquery-2.1.4.min.js"></script>
 <script src="/static/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
 <script src="/static/assets/plugins/pace-master/pace.min.js"></script>
-<!-- <script src="/static/assets/plugins/jquery-blockui/jquery.blockui.js"></script> -->
+<script src="/static/assets/plugins/jquery-blockui/jquery.blockui.js"></script>
 <script src="/static/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-<!-- <script src="/static/assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script> -->
-<!-- <script src="/static/assets/plugins/switchery/switchery.min.js"></script> -->
-<!-- <script src="/static/assets/plugins/uniform/jquery.uniform.min.js"></script> -->
+<script src="/static/assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/static/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/assets/plugins/switchery/switchery.min.js"></script>
+<script src="/static/assets/plugins/uniform/jquery.uniform.min.js"></script>
 <script src="/static/assets/plugins/classie/classie.js"></script>
 <script src="/static/assets/plugins/waves/waves.min.js"></script>
 <script src="/static/assets/plugins/3d-bold-navigation/js/main.js"></script>
+<script src="/static/assets/js/modern.min.js"></script>
 <!-- <script src="/static/assets/plugins/waypoints/jquery.waypoints.min.js"></script> -->
 <!-- <script src="/static/assets/plugins/jquery-counterup/jquery.counterup.min.js"></script> -->
 <script src="/static/assets/plugins/toastr/toastr.min.js"></script>
@@ -217,6 +226,18 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
 
 
 <script type="text/javascript">
+
+    $('.has_sub').click(function(){
+        console.log("clicou menu");
+        let childElement = $(this).children('ul');
+        childElement.toggle();
+    });
+
+    $('.has_sub_2').click(function(){
+        console.log("clicou menu 2");
+        let childElement = $(this).children('ul');
+        childElement.toggle();
+    });
 
     var pagina = "<?php if(isset($pagina)) echo $pagina ?>";
     if (pagina == "Dashboard"){
@@ -236,14 +257,6 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
         };
         toastr.success('', 'Seja bem vindo ao InfoSystem!');
     }
-
-    var tem_unidade = "<?= $_SESSION['cod_unidade'] ?>";
-    var cod_funcao = "<?= $_SESSION['cod_funcao'] ?>";
-
-    setTimeout(function(){ 
-        if(tem_unidade == "nao" && (cod_funcao == 1 || cod_funcao == 2))
-            alert("Você ainda nao possui unidades cadastradas. Deseja cadastrar agora?");
-    }, 2000);
 
 </script>
 
