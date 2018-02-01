@@ -110,39 +110,14 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
                 <ul class="menu accordion-menu">
                     
                     <li class="active"><a href="<?php echo base_url('index.php/dashboard'); ?>"><span class="menu-icon icon-home"></span><p>Início</p></a></li>
-                    <li class="droplink"><a href="#"><span class="menu-icon icon-note"></span><p>Cadastros</p><span class="arrow"></span></a>
-                        <ul class="sub-menu">
-                            <li><a href="#">Cliente</a></li>
-                            <li><a href="#">Produtos</a></li>
-                            <li><a href="#">Funcionários</a></li>
-                            <li><a href="<?php echo base_url('index.php/cadastro_unidades'); ?>">Unidades</a></li>
-                        </ul>
-                    </li>
-                    <li class="droplink"><a href="#"><span class="menu-icon icon-wallet"></span><p>Financeiro</p><span class="arrow"></span></a>
-                        <ul class="sub-menu">
-                            <li><a href="#">Venda</a></li>
-                            <li><a href="#">Caixa</a></li>
-                            <li><a href="#">...</a></li>
-                        </ul>
-                    </li>
                     <li class="droplink"><a href="#"><span class="menu-icon icon-eye"></span><p>Consultas</p><span class="arrow"></span></a>
                         <ul class="sub-menu">
-                            <li><a href="#">Estoque</a></li>
-                            <li><a href="#">Produtos</a></li>
-                            <li><a href="table-static.html">Static Tables</a></li>
-                            <li><a href="table-responsive.html">Responsive Tables</a></li>
-                            <li><a href="table-data.html">Data Tables</a></li>
+                            
                         </ul>
                     </li>
                     <li class="droplink"><a href="#"><span class="menu-icon icon-folder"></span><p>Relatórios</p><span class="arrow"></span></a>
                         <ul class="sub-menu">
-                            <li><a href="form-elements.html">Form Elements</a></li>
-                            <li><a href="form-wizard.html">Form Wizard</a></li>
-                            <li><a href="form-upload.html">File Upload</a></li>
-                            <li><a href="form-image-crop.html">Image Crop</a></li>
-                            <li><a href="form-image-zoom.html">Image Zoom</a></li>
-                            <li><a href="form-select2.html">Select2</a></li>
-                            <li><a href="form-x-editable.html">X-editable</a></li>
+                            
                         </ul>
                     </li>
                     <li class="droplink"><a href="#"><span class="menu-icon icon-list"></span><p>Levels</p><span class="arrow"></span></a>
@@ -158,6 +133,11 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
                                 </ul>
                             </li>
                             <li><a href="#">Level 1.2</a></li>
+                        </ul>
+                    </li>
+                    <li class="droplink"><a href="#"><span class="menu-icon icon-wallet"></span><p>Financeiro</p><span class="arrow"></span></a>
+                        <ul class="sub-menu">
+                            
                         </ul>
                     </li>
                     <li class="droplink"><a href="#"><span class="menu-icon icon-settings"></span><p>Congifurações</p><span class="arrow"></span></a>
