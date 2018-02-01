@@ -3,7 +3,7 @@
 if (!isset($_SESSION)) session_start();
 
 // Verifica se não há a variável da sessão que identifica o usuário
-if (!isset($_SESSION['id_usuario']) || !isset($_SESSION['logado'])) {
+if (!isset($_SESSION['cod_usuario']) || !isset($_SESSION['logado'])) {
     // Destrói a sessão por segurança
     session_unset();
     session_destroy();

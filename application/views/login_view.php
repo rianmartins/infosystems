@@ -37,7 +37,7 @@ defined('BASEPATH') OR exit('Acesso negado.');
                 <div class="row">
                     <div class="col-md-3 center">
                         <div class="login-box">
-                            <a href="http://www.infosystems.com" style="font-size: 50px;" class="logo-name text-lg text-center">InfoSystems</a>
+                            <a href="" style="font-size: 50px;" class="logo-name text-lg text-center">InfoSystems</a>
                             <p class="text-center m-t-md">Entrar no Sistema</p>
                             <form method="post" class="m-t-md" action="<?php echo base_url('index.php/login/logar'); ?>">
                                 <div class="form-group">

@@ -240,52 +240,34 @@ class Login extends CI_Controller {
 
 		$loga = false;
 
-		$usuarios_email = $this->model->get_usuarios_senhas();
-		foreach ($usuarios_email as $key => $user) {
-			if($user->usuario == $login || $user->email == $login){
-				if($user->senha == $senha_hash){
-					$nome_pessoa = $user->nome_pessoa;
-					$id_usuario = $user->id_usuario;
-					$cod_funcao = $user->cod_usuario_funcao;
-					$cod_status = $user->cod_usuario_status;
-					$loga = true;
-				}
-			}
+		$login_info = $this->model->valida_login($login, $senha_hash);
+
+		if(count($login_info) > 0){
+			$nome_pessoa 	 = $login_info[0]->nome_pessoa;
+			$cod_usuario 	 = $login_info[0]->cod_usuario;
+			$cod_funcao 	 = $login_info[0]->cod_funcao;
+			$cod_funcionario = $login_info[0]->cod_funcionario;
+			$cod_unidade	 = $login_info[0]->cod_unidade;
+			$loga 			 = true;
 		}
 
 		if($loga){
 
-			if($cod_status != 1){
-				$data["tipo_retorno"] = "erro";
-				$data["msg_retorno"] = "Usuário não autorizado. Favor entrar em contato com a gerência.";
-
-				$this->load->view('login_view',$data);
-				return false;
-			}
-
-			$unidades = $this->model->get_unidades();
-			if(count($unidades) == 0){
-				$data['unidades'] = "nao";
-			}
-			else{
-				$data['unidades'] = "sim";
-			}
-
-			if (!isset($_SESSION)) session_start();
+			if (!isset($_SESSION)) 
+				session_start();
 
 			$_SESSION['user_name'] = $nome_pessoa;
-			$_SESSION['id_usuario'] = $id_usuario;
+			$_SESSION['cod_usuario'] = $cod_usuario;
 			$_SESSION['logado'] = true;
 			$_SESSION['ultima_modificacao'] = time();
-			$_SESSION['cod_unidade'] = $this->model->get_usuario_unidade($id_usuario);
+			$_SESSION['cod_unidade'] = $cod_unidade;
 			$_SESSION['cod_funcao'] = $cod_funcao;
 
 			$data['nome_usuario'] = $nome_pessoa;
 			$data['bem_vindo'] = "true";
 			$data['cod_funcao'] = $cod_funcao;
-			$data['cod_status'] = $cod_status;
 
-			$data['conteudo'] = $this->load->view('welcome_message',$data,TRUE);
+			$data['conteudo'] = $this->load->view('welcome_message', $data, TRUE);
 			$data['titulo_da_pagina'] = "Dashboard";
 			$data['caminho'] = "";
 			$data['pagina'] = "Dashboard";

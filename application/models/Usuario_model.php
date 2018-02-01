@@ -2,33 +2,35 @@
 
 class Usuario_model extends CI_Model {
 
-        // public function get_last_ten_entries()
-        // {
-        //         $query = $this->db->get('entries', 10);
-        //         return $query->result();
-        // }
-
-        // public function insert_entry()
-        // {
-        //         $this->title    = $_POST['title']; // please read the below note
-        //         $this->content  = $_POST['content'];
-        //         $this->date     = time();
-
-        //         $this->db->insert('entries', $this);
-        // }
-
-        // public function update_entry()
-        // {
-        //         $this->title    = $_POST['title'];
-        //         $this->content  = $_POST['content'];
-        //         $this->date     = time();
-
-        //         $this->db->update('entries', $this, array('id' => $_POST['id']));
-        // }
-
         public function __construct()
         {
                 parent::__construct();
+
+        }
+
+        public function valida_login($login, $senha_hash){
+
+            $sql = "SELECT 
+                        CASE
+                        WHEN (u.is_funcionario IS TRUE)
+                            THEN f.nome_pessoa
+                            ELSE c.nome_pessoa
+                        END AS nome_pessoa,
+                        u.cod_usuario,
+                        f.cod_funcionario,
+                        c.cod_cliente,
+                        f.cod_funcao,
+                        u.cod_unidade
+
+                    FROM usuarios u
+                    LEFT JOIN funcionarios f ON f.cod_usuario = u.cod_usuario
+                    LEFT JOIN clientes c ON c.cod_usuario = u.cod_usuario
+
+                    WHERE
+                        u.usuario = '{$login}'
+                        AND u.senha = '{$senha_hash}'";
+            $query = $this->db->query($sql);
+            return $query->result();
 
         }
 
