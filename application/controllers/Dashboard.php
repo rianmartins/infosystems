@@ -26,6 +26,7 @@ class Dashboard extends CI_Controller {
 			$data['unidades'] = "";
 			$data['cod_funcao'] = $_SESSION['cod_funcao'];
 			$data['titulo_da_pagina'] = "Dashboard";
+			$data['pagina'] = "Dashboard";
 
 			$data['conteudo'] = $this->load->view('welcome_message',$data,TRUE);
 			$this->load->view('main_view',$data);

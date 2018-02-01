@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <label>Complemento:</label>
                     <input type="text" class="form-control" id="input-placeholder" >
                 </div>

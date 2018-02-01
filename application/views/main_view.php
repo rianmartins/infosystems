@@ -160,6 +160,13 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
                             <li><a href="#">Level 1.2</a></li>
                         </ul>
                     </li>
+                    <li class="droplink"><a href="#"><span class="menu-icon icon-settings"></span><p>Congifurações</p><span class="arrow"></span></a>
+                        <ul class="sub-menu">
+                            <li><a href="<?php echo base_url('index.php/configuracoes_sistema/funcionario_funcao_index'); ?>">Cadastro de Função</a></li>
+                            <li><a href="#">Cadastro de Funcionários</a></li>
+                            <li><a href="<?php echo base_url('index.php/cadastro_unidades'); ?>">Cadastro de Unidades</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div><!-- Page Sidebar Inner -->
         </div><!-- Page Sidebar -->
@@ -168,11 +175,13 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
                 <ol class="breadcrumb container">
                     <li><a href="<?php echo base_url('index.php/dashboard'); ?>">Home</a></li>
                     <?php
-                        if($pagina != "Dashboard"){ ?>
-                            <li><a href="#"><?= $caminho ?></a></li>
-                        <?php }
+                        if(isset($pagina)){
+                            if($pagina != "Dashboard"){ ?>
+                                <li><a href="#"><?= $caminho ?></a></li>
+                            <?php }
+                        }
                     ?>
-                    <li class="active"><?= $pagina ?></li>
+                    <li class="active"><?php if(isset($pagina)) echo $pagina ?></li>
                 </ol>
             </div>
             <div class="page-title">
@@ -204,7 +213,7 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
 <!-- Javascripts -->
 <script src="/static/assets/plugins/jquery/jquery-2.1.4.min.js"></script>
 <script src="/static/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
-<!-- <script src="/static/assets/plugins/pace-master/pace.min.js"></script> -->
+<script src="/static/assets/plugins/pace-master/pace.min.js"></script>
 <!-- <script src="/static/assets/plugins/jquery-blockui/jquery.blockui.js"></script> -->
 <script src="/static/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 <!-- <script src="/static/assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script> -->
@@ -229,7 +238,7 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
 
 <script type="text/javascript">
 
-    var pagina = "<?= $pagina ?>";
+    var pagina = "<?php if(isset($pagina)) echo $pagina ?>";
     if (pagina == "Dashboard"){
         var bem_vindo_ao_dashboard = "<?php if(isset($bem_vindo)) echo $bem_vindo; else echo 'false' ?>";
     }
