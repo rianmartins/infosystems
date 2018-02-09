@@ -2,6 +2,9 @@
 defined('BASEPATH') OR exit('Acesso negado.');
 ?>
 
+<link rel="icon" href="/static/img/favicon.ico" type="image/x-icon"/>
+<link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon"/>
+
 <head>
     
     <!-- Title -->
@@ -37,7 +40,7 @@ defined('BASEPATH') OR exit('Acesso negado.');
                 <div class="row">
                     <div class="col-md-3 center">
                         <div class="login-box">
-                            <a href="" style="font-size: 50px;" class="logo-name text-lg text-center">InfoSystems</a>
+                            <a href="" class="logo-name text-lg text-center"> <img src="/static/img/logo.png" height="100"> </a>
                             <p class="text-center m-t-md">Entrar no Sistema</p>
                             <form method="post" class="m-t-md" action="<?php echo base_url('index.php/login/logar'); ?>">
                                 <div class="form-group">
@@ -51,7 +54,7 @@ defined('BASEPATH') OR exit('Acesso negado.');
                                 <p class="text-center m-t-xs text-sm">Não possui conta?</p>
                                 <a href="<?php echo base_url('index.php/login/cadastro_usuario'); ?>" id="botao_cadastro_usuario" class="btn btn-default btn-block m-t-md">Cadastre-se aqui</a>
                             </form>
-                            <p class="text-center m-t-xs text-sm">2017 &copy; InfoSystems by Rian Martins.</p>
+                            <p class="text-center m-t-xs text-sm">2017 &copy; cartuchos pro by Rian Martins.</p>
                         </div>
                     </div>
                 </div><!-- Row -->

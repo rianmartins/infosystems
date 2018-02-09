@@ -68,7 +68,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	
 
 	<div id="body_inner">
-		<h1 id="h1_inner">Bem Vindo ao CartuchOnline</h1>
+		<h1 id="h1_inner">Bem Vindo ao cartuchosPro</h1>
 	</div>
 	<p class="footer_inner"><i class="fa fa-warning"></i> Sua dashboard está sendo preparada e em breve estará disponível. Agradecemos sua compreensão.</p>
 </div>

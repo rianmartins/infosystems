@@ -14,7 +14,7 @@ class Unidades_model extends CI_Model {
     }
 
     public function get_usuario_unidade($cod_usuario){
-            $query = $this->db->query("SELECT cod_unidade FROM usuarios_cadastro WHERE id_usuario = $cod_usuario");
+            $query = $this->db->query("SELECT cod_unidade FROM usuarios WHERE cod_usuario = $cod_usuario");
             return $query->row()->cod_unidade;
     }
 

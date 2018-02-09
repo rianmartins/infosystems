@@ -42,7 +42,7 @@ defined('BASEPATH') OR exit('Acesso negado.');
                                 <div id="carregando"></div>
                                 <form method="post" class="m-t-md" id="redefinir_senha">
                                     <input type="hidden" class="form-control" id="chave_atual" name="chave" value="<?= $chave ?>">
-                                    <input type="hidden" class="form-control" id="id_usuario" name="id_usuario" value="<?= $id_usuario ?>">
+                                    <input type="hidden" class="form-control" id="cod_usuario" name="cod_usuario" value="<?= $cod_usuario ?>">
                                     <div class="form-group">
                                         <input type="password" class="form-control" title="Digite sua nova senha" placeholder="Senha" name="senha" id="nova_senha" required>
                                     </div>
@@ -84,13 +84,13 @@ defined('BASEPATH') OR exit('Acesso negado.');
             timeOut: 5000
         };
 
-        var id_usuario = $("#id_usuario").val();
+        var cod_usuario = $("#cod_usuario").val();
         var nova_senha = $("#nova_senha").val(); 
         var nova_senha_confirmacao = $("#nova_senha_confirmacao").val();
         var chave_atual = $("#chave_atual").val(); 
 
         $.ajax({
-            url: "<?php echo base_url('index.php/login/salvar_mudanca_senha'); ?>" + "/" + id_usuario,
+            url: "<?php echo base_url('index.php/login/salvar_mudanca_senha'); ?>" + "/" + cod_usuario,
             type: "post",
             data: {"nova_senha" : nova_senha, "nova_senha_confirmacao" : nova_senha_confirmacao, "chave" : chave_atual},
             dataType: 'json',

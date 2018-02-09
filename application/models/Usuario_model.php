@@ -20,7 +20,11 @@ class Usuario_model extends CI_Model {
                         f.cod_funcionario,
                         c.cod_cliente,
                         f.cod_funcao,
-                        u.cod_unidade
+                        CASE
+                        WHEN (u.is_funcionario IS TRUE)
+                            THEN f.cod_unidade
+                            ELSE 0
+                        END AS cod_unidade
 
                     FROM usuarios u
                     LEFT JOIN funcionarios f ON f.cod_usuario = u.cod_usuario
@@ -40,32 +44,32 @@ class Usuario_model extends CI_Model {
         }
 
         public function insert($data){
-                $this->db->insert("usuarios_cadastro", $data);
+                $this->db->insert("usuarios", $data);
                 return $this->db->insert_id();
         }
 
         public function get_usuario_nome($email){
-                $query = $this->db->query("SELECT nome_pessoa FROM usuarios_cadastro WHERE email = '$email'");
+                $query = $this->db->query("SELECT nome_pessoa FROM usuarios WHERE email = '$email'");
                 return $query->row()->nome_pessoa;
         }
 
         public function get_usuarios_emails(){
-                $query = $this->db->query("SELECT usuario, email FROM usuarios_cadastro");
+                $query = $this->db->query("SELECT usuario, email FROM usuarios");
                 return $query->result();
         }
 
         public function get_usuarios_senhas(){
-                $query = $this->db->query("SELECT * FROM usuarios_cadastro");
+                $query = $this->db->query("SELECT * FROM usuarios");
                 return $query->result();
         }
 
         public function get_usuarios_chave(){
-                $query = $this->db->query("SELECT id_usuario, chave FROM usuarios_cadastro");
+                $query = $this->db->query("SELECT cod_usuario, chave FROM usuarios");
                 return $query->result();
         }
 
         public function get_usuario_unidade($cod_usuario){
-                $query = $this->db->query("SELECT cod_unidade FROM usuarios_cadastro WHERE id_usuario = $cod_usuario");
+                $query = $this->db->query("SELECT cod_unidade FROM usuarios WHERE cod_usuario = $cod_usuario");
                 return $query->row()->cod_unidade;
         }
 
@@ -75,26 +79,37 @@ class Usuario_model extends CI_Model {
         }
 
         public function get_chave($email){
-                $query = $this->db->query("SELECT chave FROM usuarios_cadastro WHERE email = '$email'");
+                $query = $this->db->query("SELECT u.chave 
+
+                                            FROM usuarios u
+                                            LEFT JOIN funcionarios f ON f.cod_usuario = u.cod_usuario
+                                            LEFT JOIN clientes c ON c.cod_usuario = u.cod_usuario
+
+                                            WHERE 
+                                                CASE
+                                                WHEN u.is_funcionario IS TRUE
+                                                    THEN f.email = '{$email}'
+                                                    ELSE c.email = '{$email}'
+                                                END");
                 $chave = $query->row()->chave;
 
                 return $chave;
         }
 
-        public function get_chave_usuario($id_usuario){
-                $query = $this->db->query("SELECT chave FROM usuarios_cadastro WHERE id_usuario = {$id_usuario}");
+        public function get_chave_usuario($cod_usuario){
+                $query = $this->db->query("SELECT chave FROM usuarios WHERE cod_usuario = {$cod_usuario}");
                 $chave = $query->row()->chave;
 
                 return $chave;
         }
 
-        public function alterar_senha($id_usuario,$nova_senha){
-                $query = $this->db->query("UPDATE usuarios_cadastro SET senha = '$nova_senha' WHERE id_usuario = {$id_usuario}");
+        public function alterar_senha($cod_usuario,$nova_senha){
+                $query = $this->db->query("UPDATE usuarios SET senha = '$nova_senha' WHERE cod_usuario = {$cod_usuario}");
         }
 
-        public function atualiza_chave($id_usuario){
+        public function atualiza_chave($cod_usuario){
                 $nova_chave = $this->gera_nova_chave();
-                $query = $this->db->query("UPDATE usuarios_cadastro SET chave = '$nova_chave' WHERE id_usuario = {$id_usuario}");
+                $query = $this->db->query("UPDATE usuarios SET chave = '$nova_chave' WHERE cod_usuario = {$cod_usuario}");
         }
 
         public function gera_nova_chave() {

@@ -7,10 +7,12 @@ if (!isset($_SESSION['cod_usuario']) || !isset($_SESSION['logado'])) {
     // Destrói a sessão por segurança
     session_unset();
     session_destroy();
+
     // Redireciona o visitante de volta pro login
     header("Location: " . base_url('index.php/login/logout')); exit;
 }
 else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_modificacao'] > 1800)){
+
     // Destrói a sessão por segurança
     session_unset();
     session_destroy();
@@ -24,9 +26,12 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
 ?>
 
 <head>
+
+    <link rel="icon" href="/static/img/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon"/>
         
     <!-- Title -->
-    <title>InfoSystems | <?= $titulo_da_pagina ?></title>
+    <title>CartuchoPro | <?= $titulo_da_pagina ?></title>
     
     <!-- Styles -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
@@ -74,7 +79,7 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
                     </a>
                 </div>
                 <div class="logo-box">
-                    <a href="<?php echo base_url('index.php/dashboard'); ?>" class="logo-text"><span>InfoSystems</span></a>
+                    <a href="<?php echo base_url('index.php/dashboard'); ?>" class="logo-text"><span><img src="/static/img/logo.png" height="50"></span></a>
                 </div><!-- Logo Box -->
                 <div class="search-button">
                     <a href="javascript:void(0);" class="waves-effect waves-button waves-classic show-search"><i class="fa fa-search"></i></a>
@@ -190,7 +195,7 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
             
             <div class="page-footer">
                 <div class="container">
-                    <p class="no-s">2017 &copy; InfoSystems by Rian Martins.</p>
+                    <p class="no-s">2017 &copy; cartuchosPro by Rian Martins.</p>
                 </div>
             </div>
         </div><!-- Page Inner -->

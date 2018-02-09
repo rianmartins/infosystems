@@ -8,6 +8,8 @@ class Login extends CI_Controller {
 		parent::__construct();
 
 		$this->load->model('Usuario_model', 'model', TRUE);
+
+		$this->load->library('session');
 	}
 
 	public function index()
@@ -86,7 +88,7 @@ class Login extends CI_Controller {
 				"chave"				 => $chave
 			);
 
-			$id_usuario = $this->model->insert($novo_usuario);
+			$cod_usuario = $this->model->insert($novo_usuario);
 
 			echo json_encode('1');
 			return false;
@@ -107,18 +109,18 @@ class Login extends CI_Controller {
 	public function mudar_senha($chave){
 
 		$chaves_banco = $this->model->get_usuarios_chave();
-		$id_usuario = null;
+		$cod_usuario = null;
 
 		$encontrou_chave = false;
 		foreach ($chaves_banco as $key => $chave_banco) {
 			if($chave_banco->chave == $chave){
-				$id_usuario = $chave_banco->id_usuario;
+				$cod_usuario = $chave_banco->cod_usuario;
 				$encontrou_chave = true;
 			}
 		}
 
 		if($encontrou_chave){
-			$data['id_usuario'] = $id_usuario;
+			$data['cod_usuario'] = $cod_usuario;
 			$data['chave'] = $chave;
 
 			$this->load->view('mudanca_senha_view',$data);
@@ -131,11 +133,11 @@ class Login extends CI_Controller {
 		
 	}
 
-	public function salvar_mudanca_senha($id_usuario){
+	public function salvar_mudanca_senha($cod_usuario){
 		$nova_senha 			= $this->input->post("nova_senha");
 		$nova_senha_confirmacao = $this->input->post("nova_senha_confirmacao");
 		$chave 					= $this->input->post("chave");
-		$chave_atual 			= $this->model->get_chave_usuario($id_usuario); 
+		$chave_atual 			= $this->model->get_chave_usuario($cod_usuario); 
 
 		if($chave != $chave_atual){
 			echo json_encode('101');
@@ -146,8 +148,8 @@ class Login extends CI_Controller {
 
 			$nova_senha_hash = hash('sha512',$nova_senha);
 
-			$this->model->atualiza_chave($id_usuario);
-			$this->model->alterar_senha($id_usuario,$nova_senha_hash);
+			$this->model->atualiza_chave($cod_usuario);
+			$this->model->alterar_senha($cod_usuario,$nova_senha_hash);
 
 			echo json_encode('1');
 			return false;
@@ -238,6 +240,8 @@ class Login extends CI_Controller {
 		$senha = $this->input->post("user_senha");
 		$senha_hash = hash('sha512',$senha);
 
+		// print_r($senha_hash);
+
 		$loga = false;
 
 		$login_info = $this->model->valida_login($login, $senha_hash);
@@ -262,6 +266,7 @@ class Login extends CI_Controller {
 			$_SESSION['ultima_modificacao'] = time();
 			$_SESSION['cod_unidade'] = $cod_unidade;
 			$_SESSION['cod_funcao'] = $cod_funcao;
+			$_SESSION['cod_funcionario'] = $cod_funcionario;
 
 			$data['nome_usuario'] = $nome_pessoa;
 			$data['bem_vindo'] = "true";
