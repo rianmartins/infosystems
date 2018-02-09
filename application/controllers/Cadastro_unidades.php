@@ -14,8 +14,10 @@ class Cadastro_unidades extends CI_Controller {
 	public function index()
 	{
 
+		$_SESSION['ultima_modificacao'] = time();
+		
 		$data['titulo_da_pagina'] = "Cadastro de Unidades";
-		$data['caminho'] = "Cadastro";
+		$data['caminho'] = "Configurações do Sistema";
 		$data['pagina'] = "Unidades";
 
 		$data['estados'] = $this->model->get_estados_br();

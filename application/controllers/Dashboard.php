@@ -21,6 +21,8 @@ class Dashboard extends CI_Controller {
 			return false;
 		}
 		else{
+			$_SESSION['ultima_modificacao'] = time();
+			
 			$data['nome_usuario'] = $_SESSION['user_name'];
 			$data['bem_vindo'] = "false";
 			$data['unidades'] = "";

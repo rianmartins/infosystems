@@ -100,10 +100,9 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
                                     <img class="img-circle avatar" src="/static/img/user-icon.png" width="40" height="40" alt="">
                                 </a>
                                 <ul class="dropdown-menu dropdown-list" role="menu">
-                                    <li role="presentation"><a href="profile.html"><i class="fa fa-user"></i>Profile</a></li>
-                                    <li role="presentation"><a href="calendar.html"><i class="fa fa-calendar"></i>Calendar</a></li>
+                                    <li role="presentation"><a href=""><i class="fa fa-user"></i>Meu Perfil</a></li>
                                     <li role="presentation" class="divider"></li>
-                                    <li role="presentation"><a href="lock-screen.html"><i class="fa fa-lock"></i>Lock screen</a></li>
+                                    <li role="presentation"><a href="lock-screen.html"><i class="fa fa-lock"></i>Trancar Sessão</a></li>
                                     <li role="presentation"><a href="<?php echo base_url('index.php/login/logout'); ?>"><i class="fa fa-sign-out m-r-xs"></i>Log out</a></li>
                                 </ul>
                             </li>
@@ -116,18 +115,20 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
             <div class="page-sidebar-inner">
                 <ul class="menu accordion-menu">
                     
-                    <li class="active"><a href="<?php echo base_url('index.php/dashboard'); ?>"><span class="menu-icon icon-home"></span><p>Início</p></a></li>
-                    <li class="droplink"><a href="#"><span class="menu-icon icon-eye"></span><p>Consultas</p><span class="arrow"></span></a>
+                    <li class="<?php if($pagina == 'Dashboard') echo 'active' ?>"><a href="<?php echo base_url('index.php/dashboard'); ?>"><span class="menu-icon icon-home"></span><p>Início</p></a></li>
+                    <li class="droplink"><a href="#"><span class="menu-icon icon-users"></span><p>Clientes</p><span class="arrow"></span></a>
+                    </li>
+                    <li class="droplink"><a href="#"><span class="menu-icon icon-printer"></span><p>Cartuchos</p><span class="arrow"></span></a>
+                    </li>
+                    <li class="droplink"><a href="#"><span class="menu-icon icon-handbag"></span><p>Pedidos</p><span class="arrow"></span></a>
+                    </li>
+                    <li class="droplink"><a href="#"><span class="menu-icon icon-tag"></span><p>Produtos</p><span class="arrow"></span></a>
                         <ul class="sub-menu">
-                            
+                            <li><a href="#">Ver Produtos</a></li>
+                            <li><a href="#">Estoque</a></li>
                         </ul>
                     </li>
-                    <li class="droplink"><a href="#"><span class="menu-icon icon-folder"></span><p>Relatórios</p><span class="arrow"></span></a>
-                        <ul class="sub-menu">
-                            
-                        </ul>
-                    </li>
-                    <li class="droplink"><a href="#"><span class="menu-icon icon-folder"></span><p>Levels</p><span class="arrow"></span></a>
+                    <!-- <li class="droplink"><a href="#"><span class="menu-icon icon-folder"></span><p>Levels</p><span class="arrow"></span></a>
                         <ul class="sub-menu">
                             <li class="droplink has_sub"><a href="#"><p>Level 1.1</p><span class="arrow"></span></a>
                                 <ul class="sub-menu">
@@ -141,22 +142,74 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
                             </li>
                             <li><a href="#">Level 1.2</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                     <li class="droplink"><a href="#"><span class="menu-icon icon-wallet"></span><p>Financeiro</p><span class="arrow"></span></a>
                         <ul class="sub-menu">
-                            
+                            <li><a href="#">Ver Caixas</a></li>
+                            <li><a href="#">Contas a Pagar</a></li>
+                            <li><a href="#">Contas a Receber</a></li>
+                            <li><a href="#">Caixa Mensal</a></li>
+                            <!-- <li><a href="#">Gerar Nota Fiscal</a></li>
+                            <li><a href="#">Emitir Boleto</a></li> -->
                         </ul>
                     </li>
-                    <li class="droplink"><a href="#"><span class="menu-icon icon-settings"></span><p>Congifurações</p><span class="arrow"></span></a>
+                    <li class="droplink"><a href="#"><span class="menu-icon icon-diamond"></span><p>Patrimônio</p><span class="arrow"></span></a>
+                    </li>
+                    <li class="droplink"><a href="#"><span class="menu-icon icon-drawer"></span><p>Comodato de Equipamento</p><span class="arrow"></span></a>
+                    </li>
+                    <li class="droplink"><a href="#"><span class="menu-icon icon-support"></span><p>Suporte</p><span class="arrow"></span></a>
                         <ul class="sub-menu">
-                            <li class="droplink has_sub"><a href="#"><p>Cadastros Base</p><span class="arrow"></span></a>
+                            <li><a href="#">O.S.</a></li>
+                            <!-- <li><a href="#">Crédito ao Cliente</a></li> -->
+                        </ul>
+                    </li>
+                    <li class="droplink"><a href="#"><span class="menu-icon icon-folder"></span><p>Relatórios</p><span class="arrow"></span></a>
+                        <ul class="sub-menu">
+                            <li class="droplink has_sub"><a href="#"><p>Financeiro</p><span class="arrow"></span></a>
                                 <ul class="sub-menu" id="level_2">
-                                    <li><a href="<?php echo base_url('index.php/configuracoes_sistema/funcionario_funcao_index'); ?>">Funções de Trabalho</a></li>
-                                    <li><a href="#">Situação de Laboratório</a></li>
+                                    <li><a href="#">Extrato de Débito</a></li>
+                                    <li><a href="#">Movimentações Financeiras</a></li>
+                                    <li><a href="#">Novos Clientes</a></li>
                                 </ul>
                             </li>
-                            <li><a href="#">Cadastro de Funcionários</a></li>
-                            <li><a href="<?php echo base_url('index.php/cadastro_unidades'); ?>">Cadastro de Unidades</a></li>
+                            <li><a href="#">Vendas por Período</a></li>
+                            <li><a href="#">Extrato de Patrimônio</a></li>
+                            <li><a href="#">Extrato de Comodato</a></li>
+                            <li><a href="#">Estoque</a></li>
+                            <li><a href="#">Folha Salarial</a></li>
+                        </ul>
+                    </li>
+                    <li class="droplink <?php if(isset($caminho) && $caminho == 'Configurações do Sistema') echo 'active open' ?>"><a href="#"><span class="menu-icon icon-settings"></span><p>Congifurações</p><span class="arrow"></span></a>
+                        <ul class="sub-menu">
+                            <li><a href="#">Funcionários</a></li>
+                            <li class="droplink has_sub"><a href="#"><p>Cartuchos</p><span class="arrow"></span></a>
+                                <ul class="sub-menu" id="level_2">
+                                    <li><a href="#">Tipos de Entrada Cartucho</a></li>
+                                    <li><a href="#">Situação Cartuchos</a></li>
+                                </ul>
+                            </li>
+                            <li class="droplink has_sub"><a href="#"><p>Produtos</p><span class="arrow"></span></a>
+                                <ul class="sub-menu" id="level_2">
+                                    <li><a href="#">Tipos de Produtos</a></li>
+                                    <li><a href="#">Fabricantes</a></li>
+                                </ul>
+                            </li>
+                            <li class="droplink has_sub"><a href="#"><p>O.S.</p><span class="arrow"></span></a>
+                                <ul class="sub-menu" id="level_2">
+                                    <li><a href="#">Tipo de O.S.</a></li>
+                                    <li><a href="#">Situação de O.S.</a></li>
+                                </ul>
+                            </li>
+                            <li class="droplink has_sub"><a href="#"><p>Cadastros Gerais</p><span class="arrow"></span></a>
+                                <ul class="sub-menu" id="level_2">
+                                    <li class="<?php if($pagina == 'Cadastro de Funções') echo 'active' ?>"><a href="<?php echo base_url('index.php/configuracoes_sistema/funcionario_funcao_index'); ?>">Funções de Trabalho</a></li>
+                                    <li><a href="#">Situação de Laboratório</a></li>
+                                    <li><a href="#">Formas de Pagamento</a></li>
+                                    <li><a href="#">Tipo de Movimentação Motoboy</a></li>
+                                </ul>
+                            </li>
+                            <li class=""><a href="">Parâmetros do Sistema</a></li>
+                            <li class="<?php if($pagina == 'Unidades') echo 'active' ?>"><a href="<?php echo base_url('index.php/cadastro_unidades'); ?>">Unidades</a></li>
                         </ul>
                     </li>
                 </ul>

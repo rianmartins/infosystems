@@ -1,9 +1,11 @@
 <div class="panel-body" id="index_funcionarios_funcoes">
     <div class="panel-heading clearfix">
-        <button type="button" class="btn btn-success">Adicionar Novo</button>
+        <button type="button" class="btn btn-github pull-right" style="margin-left: 5px;"><i class="fa fa-question"></i></button>
+        <button type="button" class="btn btn-success pull-right">Adicionar Novo</button>
     </div>
+    <hr>
     <div class="panel-body">
-       <div class="table-responsive">
+        <div class="table-responsive">
             <table id="funcionarios_funcoes_table" class="display table" style="width: 100%; cellspacing: 0;">
                 <thead>
                     <tr>

@@ -13,6 +13,8 @@ class Configuracoes_sistema extends CI_Controller {
 
 	public function index(){
 
+		$_SESSION['ultima_modificacao'] = time();
+
 		$data['titulo_da_pagina'] = "Cadastro de Unidades";
 		$data['caminho'] = "Cadastro";
 		$data['pagina'] = "Unidades";
@@ -26,6 +28,8 @@ class Configuracoes_sistema extends CI_Controller {
 	}
 
 	public function funcionario_funcao_index(){
+
+		$_SESSION['ultima_modificacao'] = time();
 
 		$data['titulo_da_pagina'] = "Cadastro de Funções";
 		$data['caminho'] = "Configurações do Sistema";
