@@ -5274,6 +5274,12 @@ body:not(.page-horizontal-bar):not(.small-sidebar) .menu.accordion-menu a {
     max-width: 400px;
 }
 
+div.login-box img{
+    position: relative;
+    left: -35px !important; 
+    height: 100px !important;
+}
+
 .login-box .logo-name {
     display: block;
     font-size: 22px;

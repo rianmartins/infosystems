@@ -31,7 +31,7 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
     <link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon"/>
         
     <!-- Title -->
-    <title>CartuchoPro | <?= $titulo_da_pagina ?></title>
+    <title>CartuchosPro | <?= $titulo_da_pagina ?></title>
     
     <!-- Styles -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
@@ -124,7 +124,7 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
                     </li>
                     <li class="droplink"><a href="#"><span class="menu-icon icon-tag"></span><p>Produtos</p><span class="arrow"></span></a>
                         <ul class="sub-menu">
-                            <li><a href="#">Ver Produtos</a></li>
+                            <li><a href="#">Produtos</a></li>
                             <li><a href="#">Estoque</a></li>
                         </ul>
                     </li>
@@ -312,7 +312,7 @@ else if(isset($_SESSION['ultima_modificacao']) && (time() - $_SESSION['ultima_mo
             hideMethod: 'fadeOut',
             timeOut: 5000
         };
-        toastr.success('', 'Seja bem vindo ao InfoSystem!');
+        toastr.success('', 'Seja bem vindo ao Cartuchos Pro!');
     }
 
 </script>

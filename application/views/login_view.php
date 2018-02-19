@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('Acesso negado.');
 <head>
     
     <!-- Title -->
-    <title>InfoSystems | Login</title>
+    <title>CartuchosPro | Login</title>
     
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <meta charset="UTF-8">
@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('Acesso negado.');
     <link href="/static/assets/plugins/toastr/toastr.min.css" rel="stylesheet" type="text/css"/>    	
     
     <!-- Theme Styles -->
-    <link href="/static/assets/css/modern.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/assets/css/modern.css" rel="stylesheet" type="text/css"/>
     <link href="/static/assets/css/custom.css" rel="stylesheet" type="text/css"/>
     
     <script src="/static/assets/plugins/3d-bold-navigation/js/modernizr.js"></script>
@@ -40,7 +40,7 @@ defined('BASEPATH') OR exit('Acesso negado.');
                 <div class="row">
                     <div class="col-md-3 center">
                         <div class="login-box">
-                            <a href="" class="logo-name text-lg text-center"> <img src="/static/img/logo.png" height="100"> </a>
+                            <a href=""> <img src="/static/img/logo.png"> </a> 
                             <p class="text-center m-t-md">Entrar no Sistema</p>
                             <form method="post" class="m-t-md" action="<?php echo base_url('index.php/login/logar'); ?>">
                                 <div class="form-group">
@@ -54,7 +54,7 @@ defined('BASEPATH') OR exit('Acesso negado.');
                                 <p class="text-center m-t-xs text-sm">Não possui conta?</p>
                                 <a href="<?php echo base_url('index.php/login/cadastro_usuario'); ?>" id="botao_cadastro_usuario" class="btn btn-default btn-block m-t-md">Cadastre-se aqui</a>
                             </form>
-                            <p class="text-center m-t-xs text-sm">2017 &copy; cartuchos pro by Rian Martins.</p>
+                            <p class="text-center m-t-xs text-sm">2017 &copy; Cartuchos Pro by Rian Martins.</p>
                         </div>
                     </div>
                 </div><!-- Row -->
